@@ -1,10 +1,11 @@
 services:
   - type: web
     name: thb-cod-proxy
-    runtime: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.6
+      - key: PORT
+        value: 5000
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /ms-playwright
