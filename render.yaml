@@ -1,9 +1,7 @@
 services:
   - type: web
     name: thb-cod-proxy
-    runtime: docker
+    runtime: python
     plan: starter
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: PORT
-        value: "5000"
+    buildCommand: "pip install -r requirements.txt && playwright install chromium --with-deps"
+    startCommand: "gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120"
